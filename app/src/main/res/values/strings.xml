@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">VolgSMU Tests</string>
+    <string name="read_db">Read DB</string>
+</resources>

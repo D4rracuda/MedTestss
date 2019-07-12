@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="disciplines">
+        <item>Гистология</item>
+        <item>Неврология</item>
+        <item>Нормальная физиология</item>
+        <item>Офтальмология</item>
+        <item>Педагогика и социология</item>
+        <item>Психиатрия и наркология</item>
+        <item>Общественное здоровье и здравохранение</item>
+        <item>Фарман-\nкология</item>
+        <item>Лучевая диагностика и терапия</item>
+        <item>Ортопеди-\nческая стоматология</item>
+        <item>История России</item>
+        <item>Анатомия человека</item>
+        <item>Биофизические свойства жизнедеятель-\nности</item>
+        <item>Делопроиз-\nводство</item>
+        <item>Микробио-\nлогия, вирусология</item>
+        <item>Пропедев-\nтика внутренних болезней</item>
+        <item>Педиатория</item>
+        <item>Факультетская терапия, профессиональ-\nные болезни</item>
+        <item>Этика, право и менеджмент в стоматологии</item>
+        <item>Кариесология и заболевания твердых тканей зубов</item>
+    </string-array>
+
+   
+
+    <integer-array name="colors">
+        <item>@color/roseStart</item>
+        <item>@color/roseEnd</item>
+        <item>@color/blueStart</item>
+        <item>@color/blueEnd</item>
+        <item>@color/greenStart</item>
+        <item>@color/greenEnd</item>
+        <item>@color/purpleStart</item>
+        <item>@color/purpleEnd</item>
+    </integer-array>
+
+</resources>
