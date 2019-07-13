@@ -65,20 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void showDialogThird(Activity activity, String msg){
 
-        final Dialog dialog = new Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.third_dialog);
-        dialogButton1 = dialog.findViewById(R.id.btn1);
-        dialogButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
+        Bundle args = new Bundle();
+        args.putString("title", "Меню");
+        ActionBarDialog actionbarDialog = new ActionBarDialog();
+        actionbarDialog.setArguments(args);
+        actionbarDialog.show(getSupportFragmentManager(),
+                "third_dialog");
     }
 
 
