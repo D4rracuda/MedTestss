@@ -5,7 +5,7 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/menu"
+        android:id="@+id/arrow"
         android:icon="@drawable/arrow"
         android:orderInCategory="300"
         android:title="title"

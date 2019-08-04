@@ -11,7 +11,9 @@
     <color name="roseEnd">#1B912E</color>
     <color name="greenStart">#4CC75E</color>
     <color name="greenEnd">#1B912E</color>
-    <color name="whiteTransparent">#E8FFFFFF</color>
+    <color name="whiteTransparent">#F2FFFFFF</color>
+    <color name="blackMain">#454545</color>
+    <color name="grayMain">#626262</color>
     <!--
     <color name="blueStart">#4EFFF3</color>
     <color name="blueEnd">#0ca6f9</color>

@@ -1,25 +1,16 @@
 package com.example.dbbalalinjava;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.annotation.SuppressLint;
 import android.content.res.TypedArray;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.igalata.bubblepicker.BubblePickerListener;
@@ -36,19 +27,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Объявим переменные компонентов
-    //Button button;
-    //TextView textView;
-
-    //Переменная для работы с БД
-    private DataBaseHelper mDBHelper;
-    private SQLiteDatabase mDb;
-
     BubblePicker picker;
     Toolbar mTopToolbar;
-
-    ImageButton dialogButton1;
-
 
     @Override
     protected void onResume() {
@@ -61,10 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-
-
-    public void showDialogThird(Activity activity, String msg){
-
+    public void showDialogThird(){
         Bundle args = new Bundle();
         args.putString("title", "Меню");
         ActionBarDialog actionbarDialog = new ActionBarDialog();
@@ -72,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         actionbarDialog.show(getSupportFragmentManager(),
                 "third_dialog");
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.menu) {
-            showDialogThird(MainActivity.this,"Third Custom Dialog");
+            showDialogThird();
             return true;
         }
 
@@ -101,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mTopToolbar);
         setTitle("Дисциплины");
 
-        mDBHelper = new DataBaseHelper(this);
+        //Переменная для работы с БД
+        DataBaseHelper mDBHelper = new DataBaseHelper(this);
 
         try {
             mDBHelper.updateDataBase();
@@ -109,37 +86,14 @@ public class MainActivity extends AppCompatActivity {
             throw new Error("UnableToUpdateDatabase");
         }
 
-        try {
-            mDb = mDBHelper.getWritableDatabase();
-        } catch (SQLException mSQLException) {
-            throw mSQLException;
-        }
+        SQLiteDatabase mDb;
+        mDb = mDBHelper.getWritableDatabase();
 
-        //Найдем компоненты в XML разметке
-        //button = findViewById(R.id.button);
-        //textView = findViewById(R.id.textView);
+
         picker = findViewById(R.id.picker);
         picker.setBubbleSize(1);
         picker.setCenterImmediately(true);
 
-        //Пропишем обработчик клика кнопки
-        /*button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String product = "";
-
-                Cursor cursor = mDb.rawQuery("SELECT * FROM disciplines", null);
-                cursor.moveToFirst();
-                while (!cursor.isAfterLast()) {
-                    product += cursor.getString(1) + " | ";
-                    cursor.moveToNext();
-                }
-                cursor.close();
-
-                textView.setText(product);
-            }
-        });*/
-        //Список клиентов
         ArrayList<HashMap<String, Object>> disciplines = new ArrayList<>();
 
         //Список параметров конкретного клиента
@@ -162,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             cursor.moveToNext();
         }
 
-        String preTitles[] = new String[disciplines.size()];
+        String[] preTitles = new String[disciplines.size()];
 
         cursor.moveToFirst();
         int n = 0;
@@ -176,19 +130,8 @@ public class MainActivity extends AppCompatActivity {
         }
         cursor.close();
 
-        //Какие параметры клиента мы будем отображать в соответствующих
-        //элементах из разметки adapter_item.xml
-        /*String[] from = { "name", "type"};
-        int[] to = { R.id.textView, R.id.textView2};
-
-        //Создаем адаптер
-        SimpleAdapter adapter = new SimpleAdapter(this, disciplines, R.toolbar.adapter_item, from, to);
-        ListView listView = findViewById(R.id.listView);
-        listView.setAdapter(adapter);*/
-        //final String[] titles = preTitles;
         final String[] titles = getResources().getStringArray(R.array.disciplines);
-        final TypedArray colors = getResources().obtainTypedArray(R.array.colors);
-        //final TypedArray images = getResources().obtainTypedArray(R.array.images);
+        @SuppressLint("Recycle") final TypedArray colors = getResources().obtainTypedArray(R.array.colors);
 
         picker.setAdapter(new BubblePickerAdapter() {
             @Override
@@ -204,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
                 item.setGradient(new BubbleGradient(colors.getColor((position * 2) % 8, 0),
                         colors.getColor((position * 2) % 8 + 1, 0), BubbleGradient.VERTICAL));
                 item.setTextColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
-                //item.setBackgroundImage(ContextCompat.getDrawable(MainActivity.this, images.getResourceId(position, 0)));
                 return item;
             }
         });
